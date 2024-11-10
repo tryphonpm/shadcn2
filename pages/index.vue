@@ -1,0 +1,8 @@
+<template>
+  <div>ACCUEIL</div>
+  <div><Button>test button</Button></div>
+</template>
+
+<script setup lang="ts"></script>
+
+<style scoped></style>
