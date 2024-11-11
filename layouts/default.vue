@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-start">
+  <div class="grid items-start md:flex">
     <Sidebar />
-    <div>
+    <div class="p-4 w-full">
       <slot />
     </div>
   </div>

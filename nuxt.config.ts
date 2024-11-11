@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   },
   icon: {
     serverBundle: {
-      collections: ['uil', 'mdi', 'ph', 'line-md'], // <!--- this
+      collections: ['uil', 'mdi', 'ph', 'line-md', 'material-symbols', 'ic'], // <!--- this
     },
   },
 });

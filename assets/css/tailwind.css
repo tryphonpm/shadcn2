@@ -75,4 +75,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  h1 {
+    @apply text-[32px] text-orange-500 font-[800];
+  }
+  p {
+    @apply text-[10px] text-slate-700 m-0;
+  }
+  header p {
+    @apply text-orange-400 mt-[-12px] text-[9px] ml-6;
+  }
 }
