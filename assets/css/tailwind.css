@@ -84,4 +84,10 @@
   header p {
     @apply text-orange-400 mt-[-12px] text-[9px] ml-6;
   }
+  TabsList p {
+    @apply text-yellow-700
+  }
+  .tabsTrigger {
+    @apply text-orange-500 text-xs
+  }
 }
