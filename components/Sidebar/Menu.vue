@@ -28,7 +28,8 @@ const items = ref([
     path: '/transactions',
     icon: 'material-symbols:app-registration-outline',
   },
-  { title: 'Accounts', path: '/accounts', icon: 'material-symbols:account-circle' },
+  { title: 'Table', path: '/table', icon: 'material-symbols:account-circle' },
+  { title: 'DataTable', path: '/datatable', icon: 'material-symbols:account-circle' },
   { title: 'Contact', path: '/contact', icon: 'mdi:comment-search-outline' },
   { title: 'Settings', path: '/settings', icon: 'ic:twotone-settings' },
 ]);
