@@ -7,6 +7,7 @@
       </div>
       <div class="w-[64px] h-12 bg-slate-200"></div>
     </header>
+
     <main class="grid gap-2">
       <!--       <div class="flex items-center gap-4">
         <div v-for="(item, index) in 3" :keys="index" class="w-[100px] h-[20px] bg-slate-200"></div>
@@ -21,8 +22,10 @@
           </div>
         </TabsList>
 
-        <TabsContent v-for="(t, index) in tabList" :keys="index" :value="t.title">
-          {{ t.component }}
+        <TabsContent value="today">
+          <div class="w-full">
+            <ChartsEcharts1 />
+          </div>
         </TabsContent>
       </Tabs>
 
@@ -40,7 +43,7 @@ const tabList = [
   {
     title: 'today',
     label: "AUJOURD'HUI",
-    component: resolveComponent('TabsToday'),
+    component: resolveComponent('ChartsEcharts1'),
   },
   {
     title: 'week',

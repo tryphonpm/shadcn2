@@ -1,20 +1,3 @@
-<template>
-  <div class="grid gap-8 h-screen">
-    <header>
-      <h1>ACCUEIL</h1>
-      <p>description</p>
-    </header>
-    <main>
-      MAIN
-      <div>
-        <VChart :option="option" />
-      </div>
-      <section>SECTION</section>
-    </main>
-    <footer>FOOTER</footer>
-  </div>
-</template>
-
 <script setup lang="ts">
 const option = ref<ECOption>({
   dataset: {
@@ -33,3 +16,9 @@ const option = ref<ECOption>({
   series: [{ type: 'bar' }],
 });
 </script>
+
+<template>
+  <div>
+    <VChart :option="option" />
+  </div>
+</template>
