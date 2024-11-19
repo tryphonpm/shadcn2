@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/table';
 import { valueUpdater } from '~/lib/utils';
 import {} from '@/lib/utils';
-import { CaretSortIcon, ChevronDownIcon } from '@radix-icons/vue'
+import { CaretSortIcon, ChevronDownIcon } from '@radix-icons/vue';
 
 import {
   FlexRender,
@@ -40,7 +40,13 @@ import {
 import { h, ref } from 'vue';
 // import DropdownAction from './DataTableDemoColumn.vue'
 
-export interface Payment {
+import { storeToRefs } from '#build/imports';
+import type { IJsonTodo } from '~/types/json';
+const jsonTodosStore = useJsonTodosStore();
+// const jsonTodos : IJsonTodo[] = jsonTodosStore.jsonTodos
+const { jsonTodos: data } = storeToRefs(jsonTodosStore);
+const { editJsonTodos } = jsonTodosStore;
+/* export interface Payment {
   id: string;
   amount: number;
   status: 'pending' | 'processing' | 'success' | 'failed';
@@ -78,9 +84,12 @@ const data: Payment[] = [
     status: 'failed',
     email: 'carmella@hotmail.com',
   },
-];
-
-const columns: ColumnDef<Payment>[] = [
+]; */
+/* userId?: number;
+  id?: number;
+  title?: string;
+  completed?: boolean; */
+const columns: ColumnDef<IJsonTodo>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -101,12 +110,17 @@ const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('status')),
+    accessorKey: 'userId',
+    header: 'USERID',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('userId')),
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'id',
+    header: 'ID',
+    cell: ({ row }) => h('div', { class: 'font-bold text-red-600' }, row.getValue('id')),
+  },
+  {
+    accessorKey: 'title',
     header: ({ column }) => {
       return h(
         Button,
@@ -114,12 +128,17 @@ const columns: ColumnDef<Payment>[] = [
           variant: 'ghost',
           onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
         },
-        () => ['Email', h(CaretSortIcon, { class: 'ml-2 h-4 w-4' })]
+        () => ['TITLE', h(CaretSortIcon, { class: 'ml-2 h-4 w-4' })]
       );
     },
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('email')),
+    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('title')),
   },
   {
+    accessorKey: 'completed',
+    header: 'COMPLETED',
+    cell: ({ row }) => h('div', { class: 'text-blue-600' }, row.getValue('completed')),
+  },
+  /*   {
     accessorKey: 'amount',
     header: () => h('div', { class: 'text-right' }, 'Amount'),
     cell: ({ row }) => {
@@ -133,7 +152,7 @@ const columns: ColumnDef<Payment>[] = [
 
       return h('div', { class: 'text-right font-medium' }, formatted);
     },
-  },
+  }, */
   /*   {
     id: 'actions',
     enableHiding: false,
@@ -185,6 +204,32 @@ const table = useVueTable({
     },
   },
 });
+
+///////
+const getData = async () => {
+  const {
+    data: response,
+    pending,
+    error,
+  } = await useFetch('/api/json', {
+    transform(response) {
+      const keysLength = Object.keys(response.data).length;
+      console.log('keysLength :', keysLength);
+      if (keysLength === 0) {
+        console.log('getData ELSE : pas de response.');
+      } else {
+        // cData.value = response.data;
+        editJsonTodos(response.data);
+
+        return response.data;
+      }
+    },
+  });
+  console.log('getData :', response);
+};
+onMounted(() => {
+  getData();
+});
 </script>
 
 <template>
@@ -192,9 +237,9 @@ const table = useVueTable({
     <div class="flex items-center py-4">
       <Input
         class="max-w-sm text-xs"
-        placeholder="Filter emails..."
-        :model-value="table.getColumn('email')?.getFilterValue() as string"
-        @update:model-value="table.getColumn('email')?.setFilterValue($event)"
+        placeholder="Filtrer les titres..."
+        :model-value="table.getColumn('title')?.getFilterValue() as string"
+        @update:model-value="table.getColumn('title')?.setFilterValue($event)"
       />
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
